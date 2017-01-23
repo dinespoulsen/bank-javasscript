@@ -10,10 +10,6 @@ describe("transaction", function(){
     expect(myDebit.getType()).toEqual("debit");
   });
 
-  it("should be reconizable", function(){
-    expect(myCredit.getType()).toEqual("credit");
-  });
-
   it("should keep a date of transaction", function(){
     expect(myDebit.getDate()).toEqual("Sat Mar 26 2016")
   });
