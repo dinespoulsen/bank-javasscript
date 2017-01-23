@@ -33,6 +33,14 @@ describe("bank", function(){
     expect( function(){myBank.withdraw(11);}).toThrow(new Error("You can't make the withdrawel: Insufficient funds"));
   });
 
+  it("should thor an error if amount is not a number when withdrawing", function(){
+    expect( function(){myBank.withdraw("fg", "03/25/2016");}).toThrow(new Error("You can't make the withdrawel: Amount is smaller than 0"));
+  });
+
+  it("should thor an error if amount is not greater than 0 when withdrawing", function(){
+    expect( function(){myBank.withdraw(-5, "03/25/2016");}).toThrow(new Error("You can't make the withdrawel: Amount is smaller than 0"));
+  });
+
   it("should be able to get a statement of the balance history", function(){
     myBank.deposit(10, "03/25/2016");
     myBank.withdraw(5, "03/26/2016");

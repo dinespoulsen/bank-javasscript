@@ -22,9 +22,13 @@
     if(amount > this._balance) {
       throw new Error("You can't make the withdrawel: Insufficient funds")
     }
-    this._balance -= amount;
-    var transaction = new Transaction("debit", date, amount, this.getBalance());
-    this._balanceHistory.addWithdrawel(transaction);
+    else if(isNaN(amount) || amount < 0) {
+      throw new Error("You can't make the withdrawel: Amount is smaller than 0")
+    } else {
+      this._balance -= amount;
+      var transaction = new Transaction("debit", date, amount, this.getBalance());
+      this._balanceHistory.addWithdrawel(transaction);
+    }
   };
 
   Bank.prototype.statement = function(){
