@@ -10,7 +10,8 @@
 
   Bank.prototype.deposit = function(amount, date){
     this._balance += amount;
-    this._balanceHistory.addDeposit(amount, date, this.getBalance());
+    var transaction = new Transaction("credit", date, amount, this.getBalance());
+    this._balanceHistory.addDeposit(transaction);
   };
 
   Bank.prototype.withdraw = function(amount, date){
@@ -18,17 +19,19 @@
       throw new Error("You can't make the withdrawel: Insufficient funds")
     }
     this._balance -= amount;
-    this._balanceHistory.addWithdrawel(amount, date, this.getBalance());
+    var transaction = new Transaction("debit", date, amount, this.getBalance());
+    this._balanceHistory.addWithdrawel(transaction);
   };
 
   Bank.prototype.statement = function(){
     var history = this._balanceHistory.getHistory();
+    console.log(history[0].getDate());
     var statement = "<table><tr><th>Date</th><th>Credit</th><th>Debit</th><th>Balance</th></tr>";
     for(i = 0; i < history.length; i += 1) {
-      if(history[i][0] === "debit") {
-        statement += "<tr><td>" + history[i][2].toDateString() + "</td><td></td><td>" + history[i][1] + "</td><td>" + history[i][3] + "</td></tr>";
+      if(history[i].getType() === "debit") {
+        statement += "<tr><td>" + history[i].getDate() + "</td><td></td><td>" + history[i].getAmount() + "</td><td>" + history[i].getBalance() + "</td></tr>";
       } else {
-        statement += "<tr><td>" + history[i][2].toDateString() + "</td><td>" + history[i][1] + "</td><td></td><td>" + history[i][3] + "</td></tr>";
+        statement += "<tr><td>" + history[i].getDate() + "</td><td>" + history[i].getAmount() + "</td><td></td><td>" + history[i].getBalance() + "</td></tr>";
       }
     };
     return  statement += "</table>"
