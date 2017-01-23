@@ -6,12 +6,12 @@ describe("balanceHistory", function(){
   });
 
   it("should be able to add a deposit to history", function(){
-    myBalanceHistory.addDeposit(10);
+    myBalanceHistory.addDeposit(10, "03/25/2016");
     expect(myBalanceHistory.getHistory().length).toEqual(1);
   });
 
   it("should be able to add a withdrawel to history", function(){
-    myBalanceHistory.addWithdrawel(10);
+    myBalanceHistory.addWithdrawel(10, "03/25/2016");
     expect(myBalanceHistory.getHistory().length).toEqual(1);
   });
 });

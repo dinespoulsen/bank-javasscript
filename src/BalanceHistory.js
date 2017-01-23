@@ -7,7 +7,7 @@
     return this._history.reverse();
   };
 
-  BalanceHistory.prototype.addDeposit = function(amount, date, balance){
+  BalanceHistory.prototype.addDeposit = function(amount, date = Date(), balance){
     this._history.push(["credit", amount, new Date(date), balance]);
   };
 
